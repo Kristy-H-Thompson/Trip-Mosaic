@@ -1,9 +1,9 @@
 //HTML For Drop Down to select which trip they are editing
-//<select id="tripSelector">
-//    <option value="">Select a Trip</option>
-//</select>
-//<div id="tripDetails"></div>
-
+/*<select id="tripSelector">
+    <option value="">Select a Trip</option>
+</select>
+<div id="tripDetails"></div>
+*/
 
 // Function to populate the dropdown with trip destinations
 function populateTripDropdown() {
@@ -11,21 +11,19 @@ function populateTripDropdown() {
     tripSelector.innerHTML = ''; // Clear existing options
 
     // Retrieve trip data from local storage
-    var tripData = JSON.parse(localStorage.getItem('tripData'));
+    var trips = JSON.parse(localStorage.getItem('trips'));
 
     // Check if trip data exists
-    if (tripData) {
-        // Create an option for each trip destination
-        Object.keys(tripData).forEach(function(key) {
-            var trip = tripData[key];
+    if (trips) {
+        // Create an option for each trip
+        trips.forEach(function(trip, index) {
             var option = document.createElement('option');
-            option.value = key; // Store the key for later use
+            option.value = index; // Store the index for later use
             option.textContent = trip.destination; // Display the destination
             tripSelector.appendChild(option);
         });
     }
 }
-
 
 
 // Function to display selected trip details
@@ -36,12 +34,12 @@ function displayTripDetails() {
     // Clear previous details
     tripDetails.innerHTML = '';
 
-    // Get selected trip's key
-    var selectedKey = tripSelector.value;
+    // Get selected trip's index
+    var selectedIndex = tripSelector.value;
 
-    // Retrieve the specific trip data
-    var tripData = JSON.parse(localStorage.getItem('tripData'));
-    var selectedTrip = tripData ? tripData[selectedKey] : null;
+    // Retrieve trip data from local storage
+    var trips = JSON.parse(localStorage.getItem('trips'));
+    var selectedTrip = trips ? trips[selectedIndex] : null;
 
     // If a trip is selected, display its details
     if (selectedTrip) {
@@ -60,4 +58,7 @@ function displayTripDetails() {
 document.getElementById('tripSelector').addEventListener('change', displayTripDetails);
 
 // Call the function to populate the dropdown when the page loads
-window.onload = populateTripDropdown;
+window.onload = function() {
+    populateTripDropdown();
+    displayTripDetails(); // Optional: Display details of the first trip if needed
+};
