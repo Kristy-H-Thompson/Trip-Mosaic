@@ -1,6 +1,5 @@
 //HTML for the activity form
 /*
-
         <h3>Add Activity</h3>
         <form id="activityForm">
             <label for="activityName">Activity Name:</label>
@@ -39,7 +38,7 @@
 // Store items in an array
 var itemsToPackArray = [];
 
-// Function to handle adding items to the list
+// Function to handle adding items to the packing list
 function addItemToList() {
     var itemInput = document.getElementById('itemInput');
     var itemList = document.getElementById('itemList');
@@ -67,6 +66,7 @@ function addItemToList() {
         itemInput.value = '';
     }
 }
+
 
 // Function to add an activity to the selected trip
 function handleActivitySubmission(event) {
@@ -146,14 +146,14 @@ function handleActivitySubmission(event) {
 
     // Create the activity object
     var newActivity = {
-        name: activityName,
+        name: activityName, //Store activity name
         date: activityDate, // Store the activity date
-        startTime: activityStartTime, // Keep original input for reference
-        endTime: activityEndTime, // Keep original input for reference
+        startTime: activityStartTime, // Store the start time for the activity
+        endTime: activityEndTime, // Store the end time for the activity
         costPerPerson: parseFloat(costPerPerson), // Ensure costPerPerson is a float
-        category: category,
+        category: category, //allow the person to put activities into categories
         itemsToPack: itemsToPackArray.slice(), // Use a copy of the array
-        description: activityDescription
+        description: activityDescription //store a description of each activity
     };
 
     // Add the activity to the trip's activities array
