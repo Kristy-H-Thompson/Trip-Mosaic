@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="tripform.js"></script>
+    
     <title>Travel Mosaic</title>
   </head>
   <body>
@@ -15,36 +15,33 @@
             <a href="#"></a>
             <a href="#"></a>
         </nav>
+    </header>
+
     <main>
         <section>
                 <img src="https://plus.unsplash.com/premium_photo-1683121257579-d40449389b63?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
         </section>
         <form id="tripForm">
-            <h2>Start Planning Your Trip!</h2>
-            <p>          
-                <label for="destination">Destination</label>
-                <input id="destination" type="text">
-            </p>
-            <p>
-                <label for="startDate">Start Date</label>
-                <input id="startDate" type="text">
-            </p>
-            <p>
-                <label for="endDate">End Date</label>
-                <input id="endDate" type="text">
-            </p>
-            <p>
-                <label for="attendees">Attendees</label>
-                <input id="attendees" type="text">
-            </p>
-            <p>
-                <label for="totalBudget">Total Budget</label>
-                <input id="totalBudget" type="text">
-            </p>
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" placeholder="Destination" required>
+
+            <label for="date">Start Date</label>
+            <input type="date" id="startDate" required>
+
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" required>
+
+            <label for="attendees">Attendees</label>
+            <input type="text" id="attendees" placeholder="Number of Attendees" required>
+
+            <label for="totalBudget">Trip Budget</label>
+            <input type="text" id="totalBudget" placeholder="Total Budget" required>
+            <button type="submit">Submit</button>
         </form>
+        <div id="error"></div>
 
     </main>
 
-        </figure>
-    </header>
+    
+    <script src="./assets/javascript/tripform.js"></script>
   </body>
