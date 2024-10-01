@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your trips easily with our user-friendly trip planner, including packing lists and budget tracking.">
+    <meta name="keywords" content="trip planner, travel, packing list, itinerary, budget">
+    <meta name="author" content="Your Name">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Trip Planner</title>
+    
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Your custom script -->
+    <script src="./assets/javascript/details.js" defer></script>
+    
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles for specific colors */
+        .bg-custom-green {
+            background-color: #98B5AB;
+        }
+        .bg-custom-pink {
+            background-color: #B598A2;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
+        <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
+            <option value="">Select a trip</option>
+            <!-- Options will be populated here -->
+        </select>
+    
+        <section id="packingListSection" style="display: none;">
+            <h3 class="text-lg font-semibold mb-4 text-[#B598A2]">Packing List</h3>
+            <div id="packingList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Packing items will be displayed here -->
+            </div>
+        </section>
+    
+        <canvas id="budgetChart" class="mt-4" style="display: none; max-height: 400px; max-width: 100%;"></canvas>
+    
+        <section class="arz cll dko">
+            <h3 class="text-[#B598A2]">Your Itinerary</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead id="itineraryTableHead" style="display: none;">
+                        <tr class="w-full bg-gray-100 text-left">
+                            <th class="py-2 px-4 border-b">Start Time</th>
+                            <th class="py-2 px-4 border-b">End Time</th>
+                            <th class="py-2 px-4 border-b">Activity Name</th>
+                            <th class="py-2 px-4 border-b">Details</th>
+                            <th class="py-2 px-4 border-b">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itineraryTableBody">
+                        <!-- Rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
