@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (isNan(attendees)) {
+        if (isNaN(attendees)) {
             errorBox.innerHTML = 'Please put in the number of people coming on the trip';
         }
 

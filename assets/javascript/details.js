@@ -93,8 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tripSelector = document.getElementById('tripSelector');
         const packingListSection = document.getElementById('packingListSection');
         const budgetChart = document.getElementById('budgetChart');
-        const itineraryTableBody = document.getElementById('itineraryTableBody');
-        const itineraryTableHead = document.getElementById('itineraryTableHead');
+        const itinerarySection = document.getElementById('itinerarySection'); // Get the itinerary section
     
         // Clear previous itinerary rows
         itineraryTableBody.innerHTML = '';
@@ -112,17 +111,43 @@ document.addEventListener('DOMContentLoaded', function () {
             packingListSection.style.display = 'block';
             budgetChart.style.display = 'block'; // Show the chart
             itineraryTableHead.style.display = 'table-header-group'; // Show the table header
+            itinerarySection.style.display = 'block'; // Show the itinerary section
+    
+            // Organize activities by date
+            const activitiesByDate = {};
+    
+            selectedTrip.activities.forEach(activity => {
+                const date = activity.date; // Assuming each activity has a date property
+                if (!activitiesByDate[date]) {
+                    activitiesByDate[date] = [];
+                }
+                activitiesByDate[date].push(activity);
+            });
+    
+            // Sort dates
+            const sortedDates = Object.keys(activitiesByDate).sort();
     
             // Populate the itinerary table
-            if (selectedTrip.activities && selectedTrip.activities.length > 0) {
-                selectedTrip.activities.forEach((activity, activityIndex) => {
+            sortedDates.forEach(date => {
+                const activities = activitiesByDate[date];
+    
+                // Add a date row
+                const dateRow = document.createElement('tr');
+                dateRow.innerHTML = `<td colspan="5" class="font-bold py-2 px-4 border-b">${date}</td>`;
+                itineraryTableBody.appendChild(dateRow);
+    
+                // Sort activities by start time
+                activities.sort((a, b) => new Date(`${a.date}T${a.startTime}`) - new Date(`${b.date}T${b.startTime}`));
+    
+                activities.forEach((activity, activityIndex) => {
                     const row = document.createElement('tr');
                     row.className = 'hover:bg-gray-100';
                     row.innerHTML = `
+                        <td class="py-2 px-4 border-b">${activity.date}</td>
                         <td class="py-2 px-4 border-b">${activity.startTime}</td>
-                        <td class="py-2 px-4 border-b">${activity.endTime}</td>
+                        <td class="py-2 px-4 border-b hidden md:table-cell">${activity.endTime}</td>
                         <td class="py-2 px-4 border-b">${activity.name}</td>
-                        <td class="py-2 px-4 border-b">
+                        <td class="py-2 px-4 border-b hidden md:table-cell">
                             <details class="group">
                                 <summary class="cursor-pointer text-blue-600 hover:underline">View Details</summary>
                                 <div class="mt-2 bg-gray-50 p-4 border border-gray-200">
@@ -137,14 +162,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
                     itineraryTableBody.appendChild(row);
                 });
-            }
+            });
     
             // Clear previous packing list items
             const packingList = document.getElementById('packingList');
             packingList.innerHTML = '';
     
             // Collect unique items to pack
-            const uniqueItems = new Set(); // Define uniqueItems
+            const uniqueItems = new Set();
             selectedTrip.activities.forEach(activity => {
                 if (activity.itemsToPack) {
                     activity.itemsToPack.forEach(item => uniqueItems.add(item));
@@ -154,9 +179,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Create cards for unique items
             uniqueItems.forEach(item => {
                 const itemCard = document.createElement('div');
-                itemCard.className = 'p-4 border rounded shadow bg-[#B598A2] hover:shadow-lg transition-shadow duration-200'; // Updated background color
-                const itemName = document.createElement('h4');
-                itemName.className = 'font-semibold text-white'; // Change text color for better contrast
+                itemCard.className = 'p-4 border rounded shadow hover:shadow-lg transition-shadow duration-200';
+                itemCard.style.backgroundColor = '#98B5AB'; // Set background color here
+                const itemName = document.createElement('p');
+                itemName.className = 'font-semibold text-black';
                 itemName.textContent = item;
                 itemCard.appendChild(itemName);
                 packingList.appendChild(itemCard);
@@ -165,37 +191,32 @@ document.addEventListener('DOMContentLoaded', function () {
             // Create the budget chart for the selected trip
             createBudgetPieChart(selectedTrip);
         } else {
-            // Hide the packing list and chart if no trip is selected
+            // Hide the packing list, chart, and itinerary section if no trip is selected
             packingListSection.style.display = 'none';
             budgetChart.style.display = 'none';
             itineraryTableHead.style.display = 'none'; // Hide the table header
+            itinerarySection.style.display = 'none'; // Hide the itinerary section
         }
     }
 
-    // Function to handle deletion
-    function confirmDelete(activityIndex, trip) {
-        const confirmed = confirm("Are you sure you want to delete this activity?");
-        if (confirmed) {
-            // Remove the activity
+    function showDeleteModal(activityIndex, trip) {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.remove('hidden');
+    
+        document.getElementById('confirmDelete').onclick = function () {
+            // Perform deletion
             trip.activities.splice(activityIndex, 1);
-            
-            // Retrieve trips from local storage
-            const tripSelector = document.getElementById('tripSelector');
-            const selectedIndex = tripSelector.value;
-            const trips = JSON.parse(localStorage.getItem('trips'));
-            
-            // Update the specific trip in the array
-            trips[selectedIndex] = trip;
-
-            // Update local storage
-            localStorage.setItem('trips', JSON.stringify(trips));
-
-            // Refresh the itinerary display
+            updateLocalStorage(trip);
+            modal.classList.add('hidden');
             displayTripDetails();
-        }
+        };
+    
+        document.getElementById('cancelDelete').onclick = function () {
+            modal.classList.add('hidden');
+        };
     }
-
-    // Event delegation for delete buttons
+    
+    // Replace the confirmDelete call in the event listener
     document.getElementById('itineraryTableBody').addEventListener('click', function (e) {
         if (e.target.classList.contains('delete-button')) {
             const activityIndex = e.target.getAttribute('data-index');
@@ -203,9 +224,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedIndex = tripSelector.value;
             const trips = JSON.parse(localStorage.getItem('trips'));
             const selectedTrip = trips[selectedIndex];
-            confirmDelete(activityIndex, selectedTrip);
+            showDeleteModal(activityIndex, selectedTrip); // Use custom modal
         }
     });
+    
+    // Function to update local storage
+    function updateLocalStorage(trip) {
+        const tripSelector = document.getElementById('tripSelector');
+        const selectedIndex = tripSelector.value;
+        const trips = JSON.parse(localStorage.getItem('trips'));
+        trips[selectedIndex] = trip;
+        localStorage.setItem('trips', JSON.stringify(trips));
+    }
 
     // Add event listener to dropdown
     document.getElementById('tripSelector').addEventListener('change', displayTripDetails);
