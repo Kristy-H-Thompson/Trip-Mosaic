@@ -31,6 +31,7 @@
 <body class="bg-gray-100">
 
     <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
+        <h2>Select a trip to add activities to</h2>
         <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
             <option value="">Select a trip</option>
             <!-- Options will be populated here -->
@@ -45,17 +46,18 @@
     
         <canvas id="budgetChart" class="mt-4" style="display: none; max-height: 400px; max-width: 100%;"></canvas>
     
-        <section class="arz cll dko">
-            <h3 class="text-[#B598A2]">Your Itinerary</h3>
+        <section id="itinerarySection" style="display: none;">
+            <h3 class="text-lg font-semibold mb-4 text-[#B598A2]">Your Itinerary</h3>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200">
-                    <thead id="itineraryTableHead" style="display: none;">
-                        <tr class="w-full bg-gray-100 text-left">
+                    <thead id="itineraryTableHead" class="hidden" style="background-color: #98B5AB; color: black;">
+                        <tr>
+                            <th class="py-2 px-4 border-b">Date</th>
                             <th class="py-2 px-4 border-b">Start Time</th>
-                            <th class="py-2 px-4 border-b">End Time</th>
+                            <th class="py-2 px-4 border-b hidden md:table-cell">End Time</th>
                             <th class="py-2 px-4 border-b">Activity Name</th>
-                            <th class="py-2 px-4 border-b">Details</th>
-                            <th class="py-2 px-4 border-b">Delete</th>
+                            <th class="py-2 px-4 border-b hidden md:table-cell">Details</th>
+                            <th class="py-2 px-4 border-b">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="itineraryTableBody">
@@ -64,6 +66,17 @@
                 </table>
             </div>
         </section>
+
+        <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <p class="text-lg">Are you sure you want to delete this activity?</p>
+                <div class="mt-4 flex justify-end">
+                    <button id="confirmDelete" class="bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600">Yes</button>
+                    <button id="cancelDelete" class="ml-2 bg-gray-300 text-gray-800 rounded px-4 py-2 hover:bg-gray-400">No</button>
+                </div>
+            </div>
+        </div>
+
     </main>
 </body>
 </html>
