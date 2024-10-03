@@ -5,21 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="tripform.js"></script>
+    <script src="logic.js"></script>
     <title>Travel Mosaic</title>
   </head>
-  <body>
+  <body class="bg-gray-100">
     <header>
-        <nav>
-            <div style="border: 2px solid #98B5AB; background-color: #98B5AB;">
-                <h1 class="text-4xl font-bold inline">Travel Mosaic</h1>
-                <div class="flex space-x-4 inline float-right">
-            <a href="#">Add New Trip</a>
-            <a href="#">Add Activities</a>
-            <a href="#">View Trip Details</a>
+        <nav class="border-b-2 border-[#98B5AB] bg-[#98B5AB] p-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: #98B5AB;"></span>
+                    <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
+                    <a href="#" class="text-gray-700 hover:text-teal-600">Add Activities</a>
+                    <a href="#" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-button" class="focus:outline-none">
+                        <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
+                    </button>
+                </div>
             </div>
+            <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
+                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
+                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
+                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
             </div>
         </nav>
-    <main>
+    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
         <section>
             <div class="flex justify-center">
                 <img class="w-1/2 h-1/2" src="https://plus.unsplash.com/premium_photo-1683121257579-d40449389b63?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
@@ -27,8 +41,8 @@
         </section>
     </section>
     <form id="tripForm">
-        <div style="border: 2px solid #98B5AB; background-color: #98B5AB;">
-            <h1 class="text-4xl font-bold flex justify-center pb-8">Add Destination</h1>
+        <div>
+            <h1 class="text-4xl text-#98B5AB font-bold flex justify-center pb-8">Add Destination</h1>
             <div class="flex flex-wrap">
             <p class="w-1/3 p-2">
         <label for="destination">Destination</label>
@@ -50,7 +64,10 @@
         <label for="totalBudget">Trip Budget</label>
         <input type="text" class="bg-slate-300" id="totalBudget" placeholder="Total Budget" required>
             </p>
-        <button type="submit" class="bg-slate-300 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-slate-500 transition duration-200">Submit</button>
+        </div>
+        </div>
+        <div class="grid place-items-center pt-8">
+        <button type="submit" class="bg-[#98B5AB] font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition duration-300">Submit</button>
         </div>
     </form>
     <div id="error"></div>
