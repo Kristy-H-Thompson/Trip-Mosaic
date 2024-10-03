@@ -36,13 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Error handling for the total budget
+        // Error handling for the total budget make sure it is a positive number over one
         totalBudget = totalBudget.replace(/[^0-9.-]+/g, '');
         if (isNaN(totalBudget) || totalBudget <= 0) {
             errorBox.innerHTML = 'Total budget must be a positive number.';
             return;
         }
 
+        // Error handling for attendees, make sure it a positive number
         if (isNaN(attendees)) {
             errorBox.innerHTML = 'Please put in the number of people coming on the trip';
         }
