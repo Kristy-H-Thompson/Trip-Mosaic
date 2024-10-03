@@ -7,41 +7,59 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="p-5">
-
+    <h3 class="text-lg font-bold mb-2">Add an activity to your selected</h3>
     <select id="tripSelector" class="mb-4 p-2 border">
         <option value="">Select a trip</option>
     </select>
 
-    <h3 class="text-lg font-bold mb-2">Add Activity</h3>
-    <form id="activityForm" style="display:none;" class="mb-4">
-        <label for="activityName" class="block">Activity Name:</label>
-        <input type="text" id="activityName" required class="p-2 border mb-2 w-full">
-
-        <label for="activityDate" class="block">Activity Date:</label>
-        <input type="date" id="activityDate" required class="p-2 border mb-2 w-full">
-
-        <label for="activityStartTime" class="block">Start Time:</label>
-        <input type="time" id="activityStartTime" required class="p-2 border mb-2 w-full">
-
-        <label for="activityEndTime" class="block">End Time:</label>
-        <input type="time" id="activityEndTime" required class="p-2 border mb-2 w-full">
-
-        <label for="costPerPerson" class="block">Cost per Person:</label>
-        <input type="number" id="costPerPerson" required class="p-2 border mb-2 w-full">
-
-        <label for="category" class="block">Category:</label>
-        <input type="text" id="category" required class="p-2 border mb-2 w-full">
-
-        <label for="itemInput" class="block">Item to Pack:</label>
-        <input type="text" id="itemInput" class="p-2 border mb-2 w-full">
-        <button type="button" id="addItemButton" class="bg-blue-500 text-white p-2 mb-2">Add Item</button>
+    
+    <form id="activityForm" style="display:none;" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Add Activity</h2>
         
-        <ul id="itemList" class="list-disc pl-5 mb-2"></ul> <!-- List to display items to pack -->
-
-        <label for="activityDescription" class="block">Description:</label>
-        <textarea id="activityDescription" required class="p-2 border mb-2 w-full"></textarea>
-
-        <button type="submit" class="bg-green-500 text-white p-2">Add Activity</button>
+        <div class="mb-4">
+            <label for="activityName" class="block text-gray-700">Activity Name:</label>
+            <input type="text" id="activityName" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityDate" class="block text-gray-700">Activity Date:</label>
+            <input type="date" id="activityDate" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityStartTime" class="block text-gray-700">Start Time:</label>
+            <input type="time" id="activityStartTime" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityEndTime" class="block text-gray-700">End Time:</label>
+            <input type="time" id="activityEndTime" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="costPerPerson" class="block text-gray-700">Cost per Person:</label>
+            <input type="number" id="costPerPerson" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="category" class="block text-gray-700">Category:</label>
+            <input type="text" id="category" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="itemInput" class="block text-gray-700">Item to Pack:</label>
+            <input type="text" id="itemInput" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+            <button type="button" id="addItemButton" class="mt-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none">Add Item</button>
+        </div>
+        
+        <ul id="itemList" class="list-disc pl-5 mb-4"></ul> <!-- List to display items to pack -->
+    
+        <div class="mb-4">
+            <label for="activityDescription" class="block text-gray-700">Description:</label>
+            <textarea id="activityDescription" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full"></textarea>
+        </div>
+    
+        <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none">Add Activity</button>
     </form>
     <div id="activityError" style="color: red;"></div>
 
