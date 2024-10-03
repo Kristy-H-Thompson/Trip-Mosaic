@@ -1,10 +1,21 @@
+/* 
+------------------------------------------------------------------------------------------------------------
+
+Handle the Trip Submission Form
+
+------------------------------------------------------------------------------------------------------------ 
+*/
+
+// Add event listened to when page content is loaded -- then define some variables
 document.addEventListener('DOMContentLoaded', function () {
     var tripForm = document.getElementById('tripForm');
     var errorBox = document.getElementById('error');
 
+// Function to handle the trip submission form
     function handleTripSubmission(event) {
         event.preventDefault();
 
+        //Define variables for each of the from data and error box
         var destination = document.getElementById('destination').value.trim();
         var startDate = document.getElementById('startDate').value;
         var endDate = document.getElementById('endDate').value;
@@ -13,24 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
         errorBox.innerHTML = '';
 
+        // Error handling for if they do not fill out every section of the form
         if (!destination || !startDate || !endDate || !attendees || !totalBudget) {
             errorBox.innerHTML = 'Please fill in all fields.';
             return;
         }
 
+        // Error handling to make sure start date is before the end date
         if (new Date(startDate) >= new Date(endDate)) {
             errorBox.innerHTML = 'End date must be after start date.';
             return;
         }
 
+        // Error handling for the total budget make sure it is a positive number over one
         totalBudget = totalBudget.replace(/[^0-9.-]+/g, '');
-
         if (isNaN(totalBudget) || totalBudget <= 0) {
             errorBox.innerHTML = 'Total budget must be a positive number.';
             return;
         }
 
-        if (isNan(attendees)) {
+        // Error handling for attendees, make sure it a positive number
+        if (isNaN(attendees)) {
             errorBox.innerHTML = 'Please put in the number of people coming on the trip';
         }
 

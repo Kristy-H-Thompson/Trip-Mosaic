@@ -4,66 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/trip.css">
-
-    <title>Document</title>
+     <title>Trip Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
 </head>
   
-<body>
-    <header></header>
-    <main>
-        <section>
-            
-    <h1>Trip Mosaic</h1>
+<body class="p-5">
+    <h3 class="text-lg font-bold mb-2">Add an activity to your selected</h3>
+    <select id="tripSelector" class="mb-4 p-2 border">
+        <option value="">Select a trip</option>
+    </select>
+
     
-        </section>
-        <section>
-            
-    <form id="activityForm">
-        <label for="activityName">Activity Name:</label>
-        <input type="text" id="activityName" required>
-        <label for="activityStartTime">Start Time:</label>
-        <input type="time" id="activityStartTime" required>
-        <label for="activityEndTime">End Time:</label>
-        <input type="time" id="activityEndTime" required>
-        <label for="costPerPerson">Cost per Person:</label>
-        <input type="number" id="costPerPerson" required>
-        <label for="category">Category:</label>
-        <input type="text" id="category" required>
-        <label for="itemInput">Item to Pack:</label>
-        <input type="text" id="itemInput">
-        <button type="button" id="addItemButton">Add Item</button>
+    <form id="activityForm" style="display:none;" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Add Activity</h2>
         
-        <ul id="itemList"></ul> <!-- List to display items to pack -->
-        <label for="activityDescription">Description:</label>
-        <textarea id="activityDescription" required></textarea>
-        <button type="submit">Add Activity</button>
+        <div class="mb-4">
+            <label for="activityName" class="block text-gray-700">Activity Name:</label>
+            <input type="text" id="activityName" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityDate" class="block text-gray-700">Activity Date:</label>
+            <input type="date" id="activityDate" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityStartTime" class="block text-gray-700">Start Time:</label>
+            <input type="time" id="activityStartTime" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="activityEndTime" class="block text-gray-700">End Time:</label>
+            <input type="time" id="activityEndTime" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="costPerPerson" class="block text-gray-700">Cost per Person:</label>
+            <input type="number" id="costPerPerson" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="category" class="block text-gray-700">Category:</label>
+            <input type="text" id="category" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+        </div>
+    
+        <div class="mb-4">
+            <label for="itemInput" class="block text-gray-700">Item to Pack:</label>
+            <input type="text" id="itemInput" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full">
+            <button type="button" id="addItemButton" class="mt-2 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none">Add Item</button>
+        </div>
+
+        <div class="mb-4">
+            <label for="activityDescription" class="block text-gray-700">Description:</label>
+            <textarea id="activityDescription" required class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full"></textarea>
+        </div>
+    
+        <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none">Add Activity</button>
     </form>
     <div id="activityError" style="color: red;"></div>
 
-</section>
-        <h2>Activities</h2>
-
-        <ul id="activityList"></ul>
-
-        <section>
-        <p>My trip was amazing! I went to the following places:</p>
-        <ul>
-            <li>Paris</li>
-            <li>London</li>
-            <li>Rome</li>
-            <li>Vatican City</li>
-        </ul>
-
-
-        <p> My favorite activities were:</p>
-        <ol>
-            <li>Visiting Buckingham Palace in England</li>
-             <li>Visiting Eifel Tower in France</li>
-               <li>Visiting The Apostolic Palace</li>
-         <li>Seeing Big Ben</li>
-     <li>Eating pizza in Italy</li>
-        </ol>
-        </section>
     </main>
     <script src="./assets/javascript/tripform.js"></script>
     <script src="./assets/javascript/logic.js"></script>
@@ -71,5 +70,6 @@
     
     <footer></footer>
 
+    <script src="./assets/javascript/activityform.js" defer></script>
 </body>
 </html>

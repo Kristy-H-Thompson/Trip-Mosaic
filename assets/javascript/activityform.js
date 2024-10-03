@@ -34,143 +34,125 @@
         <div id="activityError" style="color: red;"></div>
 */
 
-
-// Store items in an array
-var itemsToPackArray = [];
-
-// Function to handle adding items to the packing list
-function addItemToList() {
-    var itemInput = document.getElementById('itemInput');
-    var itemList = document.getElementById('itemList');
-
-    var newItem = itemInput.value.trim();
-    if (newItem) {
-        itemsToPackArray.push(newItem);
-
-        // Create a list item
-        var listItem = document.createElement('li');
-        listItem.textContent = newItem;
-
-        // Optional: Add a button to remove the item
-        var removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.onclick = function() {
-            itemsToPackArray.splice(itemsToPackArray.indexOf(newItem), 1);
-            itemList.removeChild(listItem);
-        };
-
-        listItem.appendChild(removeButton);
-        itemList.appendChild(listItem);
-
-        // Clear the input field
-        itemInput.value = '';
-    }
-}
-
-
-// Function to add an activity to the selected trip
-function handleActivitySubmission(event) {
-    event.preventDefault();
-
-    // Retrieve form values
-    var activityName = document.getElementById('activityName').value.trim();
-    var activityDate = document.getElementById('activityDate').value; // New date input
-    var activityStartTime = document.getElementById('activityStartTime').value;
-    var activityEndTime = document.getElementById('activityEndTime').value;
-    var costPerPerson = document.getElementById('costPerPerson').value.trim();
-    var category = document.getElementById('category').value.trim();
-    var activityDescription = document.getElementById('activityDescription').value.trim();
-    var activityErrorBox = document.getElementById('activityError');
-
-    // Clear previous error messages
-    activityErrorBox.innerHTML = '';
-
-    // Validate inputs
-    if (!activityName || !activityDate || !activityStartTime || !activityEndTime || !costPerPerson || !category || itemsToPackArray.length === 0 || !activityDescription) {
-        activityErrorBox.innerHTML = 'Please fill in all fields.';
-        return;
-    }
-
-    // Clean costPerPerson input
-    costPerPerson = costPerPerson.replace(/[^0-9.-]+/g, ''); // Remove non-numeric characters
-
-    // Validate costPerPerson
-    if (isNaN(costPerPerson) || parseFloat(costPerPerson) <= 0) {
-        activityErrorBox.innerHTML = 'Cost per person must be a valid positive number.';
-        return;
-    }
-
-    // Standardize date and time formats
-    var startTimeDate = new Date(`${activityDate}T${activityStartTime}:00`);
-    var endTimeDate = new Date(`${activityDate}T${activityEndTime}:00`);
-
-    // Validate start and end times
-    if (isNaN(startTimeDate.getTime()) || isNaN(endTimeDate.getTime())) {
-        activityErrorBox.innerHTML = 'Please enter valid start and end times.';
-        return;
-    }
-
-    if (endTimeDate <= startTimeDate) {
-        activityErrorBox.innerHTML = 'End time must be after start time.';
-        return;
-    }
-
-    // Get the selected trip
+document.addEventListener('DOMContentLoaded', function () {
     var tripSelector = document.getElementById('tripSelector');
-    var selectedIndex = tripSelector.value; // Use the index from dropdown
-
-    // Retrieve trip data from local storage
+    var activityForm = document.getElementById('activityForm');
+    var activityErrorBox = document.getElementById('activityError');
     var trips = JSON.parse(localStorage.getItem('trips')) || [];
+    var itemsToPackArray = []; // Array to hold items to pack
 
-    // If the selected trip doesn't exist, show an error
-    if (!trips[selectedIndex]) {
-        activityErrorBox.innerHTML = 'No trip selected.';
-        return;
-    }
+    // Function to populate the dropdown with trip destinations from local storage
+    function populateTripDropdown() {
+        tripSelector.innerHTML = ''; // Clear existing options
 
-    // Check for overlapping activities
-    if (trips[selectedIndex].activities) {
-        for (var activity of trips[selectedIndex].activities) {
-            var existingStartDate = new Date(`${activityDate}T${activity.startTime}:00`);
-            var existingEndDate = new Date(`${activityDate}T${activity.endTime}:00`);
-
-            // Check if the new activity overlaps with an existing activity
-            if ((startTimeDate >= existingStartDate && startTimeDate < existingEndDate) || 
-                (endTimeDate > existingStartDate && endTimeDate <= existingEndDate) || 
-                (startTimeDate <= existingStartDate && endTimeDate >= existingEndDate)) {
-                activityErrorBox.innerHTML = 'This activity overlaps with an existing activity.';
-                return;
-            }
+        if (Array.isArray(trips) && trips.length > 0) {
+            trips.forEach(function(trip, index) {
+                if (trip.destination) { // Ensure destination exists
+                    var option = document.createElement('option');
+                    option.value = index; // Store the index for later use
+                    option.textContent = trip.destination; // Display the destination
+                    tripSelector.appendChild(option);
+                }
+            });
+        } else {
+            var option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'No trips available';
+            tripSelector.appendChild(option);
         }
     }
 
-    // Create the activity object
-    var newActivity = {
-        name: activityName, //Store activity name
-        date: activityDate, // Store the activity date
-        startTime: activityStartTime, // Store the start time for the activity
-        endTime: activityEndTime, // Store the end time for the activity
-        costPerPerson: parseFloat(costPerPerson), // Ensure costPerPerson is a float
-        category: category, //allow the person to put activities into categories
-        itemsToPack: itemsToPackArray.slice(), // Use a copy of the array
-        description: activityDescription //store a description of each activity
-    };
+    // Show or hide activity form based on trip selection
+    tripSelector.addEventListener('change', function() {
+        if (this.value) {
+            activityForm.style.display = 'block'; // Show activity form
+            activityErrorBox.innerHTML = ''; // Clear previous errors
+        } else {
+            activityForm.style.display = 'none'; // Hide activity form
+            itemsToPackArray = []; // Reset items to pack
+            document.getElementById('itemList').innerHTML = ''; // Clear the item list
+        }
+    });
 
-    // Add the activity to the trip's activities array
-    trips[selectedIndex].activities.push(newActivity);
+    // Handle adding items to pack
+    document.getElementById('addItemButton').addEventListener('click', function() {
+        var itemInput = document.getElementById('itemInput').value.trim();
+        if (itemInput) {
+            itemsToPackArray.push(itemInput); // Add item to array
+            var itemList = document.getElementById('itemList');
+            var listItem = document.createElement('li');
+            listItem.textContent = itemInput; // Display the item
+            itemList.appendChild(listItem);
+            document.getElementById('itemInput').value = ''; // Clear input
+        }
+    });
 
-    // Store updated trip data back to local storage
-    localStorage.setItem('trips', JSON.stringify(trips));
+    // Handle activity submission
+    activityForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        activityErrorBox.innerHTML = ''; // Clear previous errors
 
-    // Clear the form and reset itemsToPackArray
-    document.getElementById('activityForm').reset();
-    itemsToPackArray = []; // Reset the items array
-    document.getElementById('itemList').innerHTML = ''; // Clear the displayed item list
-    alert('Activity added successfully!');
-}
+        var selectedTripIndex = tripSelector.value;
+        var activityName = document.getElementById('activityName').value.trim();
+        var activityDate = document.getElementById('activityDate').value;
+        var activityStartTime = document.getElementById('activityStartTime').value;
+        var activityEndTime = document.getElementById('activityEndTime').value;
+        var costPerPerson = parseFloat(document.getElementById('costPerPerson').value.trim());
+        var category = document.getElementById('category').value.trim();
+        var activityDescription = document.getElementById('activityDescription').value.trim();
 
-// Add event listener to the add item button
-document.getElementById('addItemButton').addEventListener('click', addItemToList);
+        // Validate inputs
+        if (!activityName || !activityDate || !activityStartTime || !activityEndTime || isNaN(costPerPerson) || !category || !activityDescription) {
+            activityErrorBox.innerHTML = 'Please fill in all fields correctly.';
+            return;
+        }
 
-// Add event listener to the activity form
-document.getElementById('activityForm').addEventListener('submit', handleActivitySubmission);
+        // Check if end time is after start time
+        var startTimeDate = new Date(`${activityDate}T${activityStartTime}`);
+        var endTimeDate = new Date(`${activityDate}T${activityEndTime}`);
+        if (endTimeDate <= startTimeDate) {
+            activityErrorBox.innerHTML = 'End time must be after start time.';
+            return;
+        }
+
+        // Validate activity date against the selected trip
+        var selectedTrip = trips[selectedTripIndex];
+        var tripStartDate = new Date(selectedTrip.startDate);
+        var tripEndDate = new Date(selectedTrip.endDate);
+        var activityDateObj = new Date(activityDate);
+
+        if (activityDateObj < tripStartDate || activityDateObj > tripEndDate) {
+            activityErrorBox.innerHTML = `Activity date must fall between trip dates: ${tripStartDate.toLocaleDateString()} and ${tripEndDate.toLocaleDateString()}.`;
+            return;
+        }
+
+        // Create the activity object
+        var activityData = {
+            name: activityName,
+            date: activityDate,
+            startTime: activityStartTime,
+            endTime: activityEndTime,
+            costPerPerson: costPerPerson,
+            category: category,
+            itemsToPack: itemsToPackArray, // Use the array of items to pack
+            description: activityDescription
+        };
+
+        // Add activity to the selected trip
+        if (!selectedTrip.activities) {
+            selectedTrip.activities = []; // Initialize activities array if it doesn't exist
+        }
+        selectedTrip.activities.push(activityData);
+        localStorage.setItem('trips', JSON.stringify(trips)); // Update local storage
+
+        // Reset the activity form
+        activityForm.reset();
+        itemsToPackArray = []; // Reset items to pack
+        document.getElementById('itemList').innerHTML = ''; // Clear the item list
+        activityForm.style.display = 'none'; // Hide form after submission
+        alert('Activity added successfully!');
+    });
+
+    // Call the function to populate the dropdown when the page loads
+    populateTripDropdown();
+});
