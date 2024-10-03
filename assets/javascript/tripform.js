@@ -43,16 +43,18 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Error handling for attendees, make sure it a positive number
+        // Error handling for attendees, make sure it a  number
         if (isNaN(attendees)) {
             errorBox.innerHTML = 'Please put in the number of people coming on the trip';
         }
 
+        // error handling for atendees makes sure this number is over on
         if (attendees <= 1) {
             errorBox.innerHTML = 'Number of attendees must be 1 or greater';
             return;
         }
 
+        // Create the tripData object
         var tripData = {
             destination: destination,
             startDate: startDate,
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             totalBudget: totalBudget
         };
 
+
         // Retrieve existing trip data or initialize an empty array
         var trips = JSON.parse(localStorage.getItem('trips')) || [];
         trips.push(tripData); // Add new trip data to the array
@@ -68,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Store the updated trips array back in local storage
         localStorage.setItem('trips', JSON.stringify(trips));
 
+        // reset the form
         tripForm.reset();
         window.location.href = 'trip.html';
     }

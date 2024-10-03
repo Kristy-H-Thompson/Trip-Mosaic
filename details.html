@@ -16,7 +16,12 @@
     <script src="./assets/javascript/details.js" defer></script>
     
     <!-- Include Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Script For Icons -->
+    <script src="https://unpkg.com/@iconify/iconify"></script>
+
+    <script src="./assets/javascript/logic.js" defer></script>
 
     <style>
         /* Custom styles for specific colors */
@@ -28,9 +33,32 @@
         }
     </style>
 </head>
-<body class="bg-gray-100"> //
+<body class="bg-gray-100"> 
+    <nav class="border-b-2 border-[#98B5AB] bg-custom-green  p-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black"></span>
+                <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+            </div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
+                <a href="#" class="text-gray-700 hover:text-teal-600">Add Activities</a>
+                <a href="#" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-button" class="focus:outline-none">
+                    <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
+        </div>
+    </nav>
 
-    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"> //
+    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8"> 
         <h2>Select a trip to add activities to</h2>
         <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
             <option value="">Select a trip</option>
@@ -38,7 +66,7 @@
         </select>
     
         <section id="packingListSection" style="display: none;">
-            <h3 class="text-lg font-semibold mb-4 text-[#FBBFCA]">Packing List</h3> //
+            <h3 class="text-lg font-semibold mb-4 text-[#FBBFCA]">Packing List</h3> 
             <div id="packingList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Packing items will be displayed here -->
             </div>
