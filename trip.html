@@ -1,11 +1,23 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/trip.css">
+
+    <title>Document</title>
+</head>
   
 <body>
     <header></header>
     <main>
         <section>
             
-    <h3>Add Activity</h3>
+    <h1>Trip Mosaic</h1>
+    
+        </section>
+        <section>
+            
     <form id="activityForm">
         <label for="activityName">Activity Name:</label>
         <input type="text" id="activityName" required>
@@ -27,16 +39,36 @@
         <button type="submit">Add Activity</button>
     </form>
     <div id="activityError" style="color: red;"></div>
+
 </section>
-        <h1>My Trip</h1>
+        <h2>Activities</h2>
+
+        <ul id="activityList"></ul>
+
+        <section>
         <p>My trip was amazing! I went to the following places:</p>
         <ul>
             <li>Paris</li>
             <li>London</li>
             <li>Rome</li>
+            <li>Vatican City</li>
         </ul>
+
+
+        <p> My favorite activities were:</p>
+        <ol>
+            <li>Visiting Buckingham Palace in England</li>
+             <li>Visiting Eifel Tower in France</li>
+               <li>Visiting The Apostolic Palace</li>
+         <li>Seeing Big Ben</li>
+     <li>Eating pizza in Italy</li>
+        </ol>
         </section>
     </main>
+    <script src="./assets/javascript/tripform.js"></script>
+    <script src="./assets/javascript/logic.js"></script>
+    <script src="./assets/javascript/activityform.js"></script>
+    
     <footer></footer>
 
 </body>
