@@ -1,45 +1,27 @@
-//HTML for the activity form
-/*
-        <h3>Add Activity</h3>
-        <form id="activityForm">
-            <label for="activityName">Activity Name:</label>
-            <input type="text" id="activityName" required>
+/* 
+------------------------------------------------------------------------------------------------------------
 
-            <label for="activityDate">Activity Date</label>
-            <input type="date" id="activityDate" required>
-    
-            <label for="activityStartTime">Start Time:</label>
-            <input type="time" id="activityStartTime" required>
-    
-            <label for="activityEndTime">End Time:</label>
-            <input type="time" id="activityEndTime" required>
-    
-            <label for="costPerPerson">Cost per Person:</label>
-            <input type="number" id="costPerPerson" required>
-    
-            <label for="category">Category:</label>
-            <input type="text" id="category" required>
-    
-            <label for="itemInput">Item to Pack:</label>
-            <input type="text" id="itemInput">
-            <button type="button" id="addItemButton">Add Item</button>
-            
-            <ul id="itemList"></ul> <!-- List to display items to pack -->
-    
-            <label for="activityDescription">Description:</label>
-            <textarea id="activityDescription" required></textarea>
-    
-            <button type="submit">Add Activity</button>
-        </form>
-        <div id="activityError" style="color: red;"></div>
+    Handling the activity form submission
+
+------------------------------------------------------------------------------------------------------------ 
 */
 
-document.addEventListener('DOMContentLoaded', function () {
+//add in an event listener for the content to load
+document.addEventListener('DOMContentLoaded', function() {
     var tripSelector = document.getElementById('tripSelector');
     var activityForm = document.getElementById('activityForm');
     var activityErrorBox = document.getElementById('activityError');
     var trips = JSON.parse(localStorage.getItem('trips')) || [];
     var itemsToPackArray = []; // Array to hold items to pack
+
+
+    /* 
+    ------------------------------------------------------------------------------------------------------------
+
+        Populate the Dropdown
+
+    ------------------------------------------------------------------------------------------------------------ 
+    */
 
     // Function to populate the dropdown with trip destinations from local storage
     function populateTripDropdown() {
@@ -74,6 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
+    /* 
+    ------------------------------------------------------------------------------------------------------------
+
+        Handling the items to pack
+
+    ------------------------------------------------------------------------------------------------------------ 
+    */
     // Handle adding items to pack
     document.getElementById('addItemButton').addEventListener('click', function() {
         var itemInput = document.getElementById('itemInput').value.trim();
@@ -87,6 +77,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
+
+
+    /* 
+    ------------------------------------------------------------------------------------------------------------
+
+        Handling the activity form submission
+
+    ------------------------------------------------------------------------------------------------------------ 
+    */
     // Handle activity submission
     activityForm.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission

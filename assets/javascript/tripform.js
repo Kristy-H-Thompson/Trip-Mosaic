@@ -7,11 +7,11 @@ Handle the Trip Submission Form
 */
 
 // Add event listened to when page content is loaded -- then define some variables
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var tripForm = document.getElementById('tripForm');
     var errorBox = document.getElementById('error');
 
-// Function to handle the trip submission form
+    // Function to handle the trip submission form
     function handleTripSubmission(event) {
         event.preventDefault();
 
