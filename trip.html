@@ -6,7 +6,6 @@
       <meta name="description" content="Plan your perfect trip with our Trip Planner tool. Explore destinations, create itineraries, and manage your travel plans efficiently.">
       <meta name="keywords" content="trip planner, travel, itinerary, vacation, destinations">
       <meta name="author" content="Drew DeMarois, Jean Robert Gassarasi, Kristy Thompson">
-      <link rel="stylesheet" href="./assets/css/trip.css">
       <title>Trip Mosaic</title>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
       <link rel="stylesheet" href="./assets/css/tripmosaic.css">
@@ -44,7 +43,7 @@
             <option value="">Select a trip</option>
             <!-- Options will be populated here -->
          </select>
-         <form id="tripForm" style="display:none;" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+         <form id="activityForm" style="display:none;" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 class="text-xl font-semibold mb-4">Add Activity</h2>
             <div class="mb-4">
                <label for="activityName" class="block text-gray-700">Activity Name:</label>
@@ -86,7 +85,6 @@
       </main>
 
       <footer></footer>      
-      <script src="./assets/javascript/tripform.js"></script>
       <script src="./assets/javascript/logic.js" defer></script>
       <script src="./assets/javascript/activityform.js" defer></script>
    </body>
