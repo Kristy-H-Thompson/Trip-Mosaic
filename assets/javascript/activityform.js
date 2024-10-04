@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var itemsToPackArray = []; // Array to hold items to pack
 
 
-  /*
+/*
     ------------------------------------------------------------------------------------------------------------
 
         Populate the Dropdown
@@ -27,12 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function populateTripDropdown() {
     tripSelector.innerHTML = ''; // Clear existing options
 
-    // Add a default option
+    // Add a default option that is always visible
     var defaultOption = document.createElement('option');
     defaultOption.value = ''; // No selection
     defaultOption.textContent = 'Select a trip'; // Prompt user to select
     tripSelector.appendChild(defaultOption);
 
+    // Check if there are any trips to add
     if (Array.isArray(trips) && trips.length > 0) {
         trips.forEach(function(trip, index) {
             if (trip.destination) { // Ensure destination exists
@@ -43,6 +44,7 @@ function populateTripDropdown() {
             }
         });
     } else {
+        // If no trips, you may want to show a different message or just keep the default option
         var noTripOption = document.createElement('option');
         noTripOption.value = '';
         noTripOption.textContent = 'No trips available'; // Notify user of no trips
