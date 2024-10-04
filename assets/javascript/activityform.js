@@ -15,47 +15,53 @@ document.addEventListener('DOMContentLoaded', function() {
     var itemsToPackArray = []; // Array to hold items to pack
 
 
-    /* 
+  /*
     ------------------------------------------------------------------------------------------------------------
 
         Populate the Dropdown
 
     ------------------------------------------------------------------------------------------------------------ 
-    */
+*/
 
-    // Function to populate the dropdown with trip destinations from local storage
-    function populateTripDropdown() {
-        tripSelector.innerHTML = ''; // Clear existing options
+// Function to populate the dropdown with trip destinations from local storage
+function populateTripDropdown() {
+    tripSelector.innerHTML = ''; // Clear existing options
 
-        if (Array.isArray(trips) && trips.length > 0) {
-            trips.forEach(function(trip, index) {
-                if (trip.destination) { // Ensure destination exists
-                    var option = document.createElement('option');
-                    option.value = index; // Store the index for later use
-                    option.textContent = trip.destination; // Display the destination
-                    tripSelector.appendChild(option);
-                }
-            });
-        } else {
-            var option = document.createElement('option');
-            option.value = '';
-            option.textContent = 'No trips available';
-            tripSelector.appendChild(option);
-        }
+    // Add a default option
+    var defaultOption = document.createElement('option');
+    defaultOption.value = ''; // No selection
+    defaultOption.textContent = 'Select a trip'; // Prompt user to select
+    tripSelector.appendChild(defaultOption);
+
+    if (Array.isArray(trips) && trips.length > 0) {
+        trips.forEach(function(trip, index) {
+            if (trip.destination) { // Ensure destination exists
+                var option = document.createElement('option');
+                option.value = index; // Store the index for later use
+                option.textContent = trip.destination; // Display the destination
+                tripSelector.appendChild(option);
+            }
+        });
+    } else {
+        var noTripOption = document.createElement('option');
+        noTripOption.value = '';
+        noTripOption.textContent = 'No trips available'; // Notify user of no trips
+        tripSelector.appendChild(noTripOption);
     }
+}
 
-    // Show or hide activity form based on trip selection
-    tripSelector.addEventListener('change', function() {
-        if (this.value) {
-            activityForm.style.display = 'block'; // Show activity form
-            activityErrorBox.innerHTML = ''; // Clear previous errors
-        } else {
-            activityForm.style.display = 'none'; // Hide activity form
-            itemsToPackArray = []; // Reset items to pack
-            document.getElementById('itemList').innerHTML = ''; // Clear the item list
-        }
-    });
-
+// Show or hide activity form based on trip selection
+tripSelector.addEventListener('change', function() {
+    console.log("Selected value:", this.value);
+    if (this.value) {
+        activityForm.style.display = 'block'; // Show activity form
+        activityErrorBox.innerHTML = ''; // Clear previous errors
+    } else {
+        activityForm.style.display = 'none'; // Hide activity form
+        itemsToPackArray = []; // Reset items to pack
+        document.getElementById('itemList').innerHTML = ''; // Clear the item list
+    }
+});
 
     /* 
     ------------------------------------------------------------------------------------------------------------
