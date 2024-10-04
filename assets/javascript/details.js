@@ -126,27 +126,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ------------------------------------------------------------------------------------------------------------ 
     */
+// Function to populate the dropdown with trip destinations from local storage
+function populateTripDropdown() {
+    const tripSelector = document.getElementById('tripSelector');
+    tripSelector.innerHTML = ''; // Clear existing options
 
-    // Function to populate the dropdown with trip destinations from local storage
-    function populateTripDropdown() {
-        const tripSelector = document.getElementById('tripSelector');
-        tripSelector.innerHTML = ''; // Clear existing options
+    // Create a default option that prompts the user to select
+    const defaultOption = document.createElement('option');
+    defaultOption.value = ''; // No selection
+    defaultOption.textContent = 'Select a trip'; // Prompt user to select
+    tripSelector.appendChild(defaultOption);
 
-        // Retrieve trip data from local storage
-        const trips = JSON.parse(localStorage.getItem('trips'));
+    // Retrieve trip data from local storage
+    const trips = JSON.parse(localStorage.getItem('trips'));
 
-        // Check if trip data exists
-        if (trips) {
-            // Create an option for each trip
-            trips.forEach((trip, index) => {
-                const option = document.createElement('option');
-                option.value = index; // Store the index for later use
-                option.textContent = trip.destination; // Display the destination
-                tripSelector.appendChild(option);
-            });
-        }
+    // Check if trip data exists and add options
+    if (trips && Array.isArray(trips) && trips.length > 0) {
+        // Create an option for each trip
+        trips.forEach((trip, index) => {
+            const option = document.createElement('option');
+            option.value = index; // Store the index for later use
+            option.textContent = trip.destination; // Display the destination
+            tripSelector.appendChild(option);
+        });
     }
 
+    // Ensure there's always at least one valid option
+    if (tripSelector.options.length === 1) {
+        const noTripsOption = document.createElement('option');
+        noTripsOption.value = ''; // No selection
+        noTripsOption.textContent = 'No trips available'; // Notify user
+        tripSelector.appendChild(noTripsOption);
+    }
+}
 
 
 
