@@ -1,72 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./assets/javascript/tripform.js"></script>
-    <script src="https://unpkg.com/@iconify/iconify"></script>
-    <script src="./assets/javascript/logic.js" defer></script>
-    <title>Travel Mosaic</title>
-  </head>
-  <body class="bg-gray-100">
-    <header>
-        <nav class="border-b-2 border-[#98B5AB] bg-[#98B5AB] p-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black;"></span>
-                    <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Plan your trips easily with our user-friendly trip planner, including packing lists and budget tracking." />
+        <meta name="keywords" content="trip mosaic, travel, packing list, itinerary, budget" />
+        <meta name="author" content="Drew DeMarois, Jean Robert Gassarasi, Kristy Thompson" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="./assets/javascript/tripform.js"></script>
+        <script src="https://unpkg.com/@iconify/iconify"></script>
+        <script src="./assets/javascript/logic.js" defer></script>
+        <title>Travel Mosaic</title>
+    </head>
+    <body class="bg-gray-100">
+        <header>
+            <nav class="border-b-2 border-[#98B5AB] bg-[#98B5AB] p-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black;"></span>
+                        <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+                    </div>
+                    <div class="hidden md:flex space-x-4">
+                        <a href="index.html" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
+                        <a href="trip.html" class="text-gray-700 hover:text-teal-600">Add Activities</a>
+                        <a href="details.html" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+                    </div>
+                    <div class="md:hidden">
+                        <button id="menu-button" class="focus:outline-none">
+                            <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
+                        </button>
+                    </div>
                 </div>
-                <div class="hidden md:flex space-x-4">
-                    <a href="index.html" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
-                    <a href="trip.html" class="text-gray-700 hover:text-teal-600">Add Activities</a>
-                    <a href="details.html" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+                <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
+                    <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
+                    <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
+                    <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
                 </div>
-                <div class="md:hidden">
-                    <button id="menu-button" class="focus:outline-none">
-                        <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
-                    </button>
+            </nav>
+        </header>
+        <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8">
+            <form id="tripForm">
+                <div>
+                    <h2 class="text-xl font-semibold mb-4">Add Destination</h2>
+                    <div>
+                        <p class="mb-4">
+                            <label for="destination" class="block text-gray-700">Destination</label>
+                            <input type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full" id="destination" placeholder="Destination" required />
+                        </p>
+                        <p class="mb-4">
+                            <label for="startDate" class="block text-gray-700">Start Date</label>
+                            <input type="date" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full" id="startDate" required />
+                        </p>
+                        <p class="mb-4">
+                            <label for="endDate" class="block text-gray-700">End Date</label>
+                            <input type="date" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full" id="endDate" required />
+                        </p>
+                        <p class="mb-4">
+                            <label for="attendees" class="block text-gray-700">Attendees</label>
+                            <input type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full" id="attendees" placeholder="Number of Attendees" required />
+                        </p>
+                        <p class="mb-4">
+                            <label for="totalBudget" class="block text-gray-700">Trip Budget</label>
+                            <input type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-full" id="totalBudget" placeholder="Total Budget" required />
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
-                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
-                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
-                <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
-            </div>
-        </nav>
-    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8">
-    <form id="tripForm">
-        <div>
-            <h1 class="text-4xl text-#98B5AB font-bold flex justify-center pb-8">Add Destination</h1>
-            <div class="flex flex-wrap">
-            <p class="w-1/3 p-2">
-        <label for="destination">Destination</label>
-        <input type="text" class="bg-slate-300" id="destination" placeholder="Destination" required>
-            </p>
-            <p class="w-1/3 p-2">
-        <label for="date">Start Date</label>
-        <input type="date" class="bg-slate-300" id="startDate" required>
-            </p>
-            <p class="w-1/3 p-2">
-        <label for="endDate">End Date</label>
-        <input type="date" class="bg-slate-300" id="endDate" required>
-            </p>
-            <p class="w-1/3 p-2">
-        <label for="attendees">Attendees</label>
-        <input type="text" class="bg-slate-300" id="attendees" placeholder="Number of Attendees" required>
-            </p>
-            <p class="w-1/3 p-2">
-        <label for="totalBudget">Trip Budget</label>
-        <input type="text" class="bg-slate-300" id="totalBudget" placeholder="Total Budget" required>
-            </p>
-        </div>
-        </div>
-        <div class="grid place-items-center pt-8">
-        <button type="submit" class="bg-[#98B5AB] font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition duration-300">Submit</button>
-        </div>
-    </form>
-    <div id="error"></div>
-    </main>
-
-      </body>
-    </html>
+                <div class="grid place-items-center pt-8">
+                    <button type="submit" class="bg-[#98B5AB] font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition duration-300">Submit</button>
+                </div>
+            </form>
+            <div id="error"></div>
+        </main>
+    </body>
+</html>
