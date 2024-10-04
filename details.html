@@ -1,110 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plan your trips easily with our user-friendly trip planner, including packing lists and budget tracking.">
-    <meta name="keywords" content="trip planner, travel, packing list, itinerary, budget">
-    <meta name="author" content="Your Name">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Your Trip Planner</title>
-    
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Your custom script -->
-    <script src="./assets/javascript/details.js" defer></script>
-    
-    <!-- Include Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
-
-    <!-- Script For Icons -->
-    <script src="https://unpkg.com/@iconify/iconify"></script>
-
-    <script src="./assets/javascript/logic.js" defer></script>
-
-    <style>
-        /* Custom styles for specific colors */
-        .bg-custom-green {
-            background-color: #98B5AB;
-        }
-        .bg-custom-pink {
-            background-color: #B598A2;
-        }
-    </style>
-</head>
-<body class="bg-gray-100"> 
-    <nav class="border-b-2 border-[#98B5AB] bg-custom-green  p-4">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center">
-                <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black"></span>
-                <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Plan your perfect trip with our Trip Planner tool. Explore destinations, create itineraries, and manage your travel plans efficiently.">
+      <meta name="keywords" content="trip planner, travel, itinerary, vacation, destinations">
+      <meta name="author" content="Drew DeMarois, Jean Robert Gassarasi, Kristy Thompson">
+      <link rel="stylesheet" href="./assets/css/trip.css">
+      <title>Trip Planner</title>
+      <!-- Include Chart.js -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <!-- Your custom script -->
+      <script src="./assets/javascript/details.js" defer></script>
+      <!-- Include Tailwind CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+      <!-- Script For Icons -->
+      <script src="https://unpkg.com/@iconify/iconify"></script>
+      <script src="./assets/javascript/logic.js" defer></script>
+      <style>
+         /* Custom styles for specific colors */
+         .bg-custom-green {
+         background-color: #98B5AB;
+         }
+         .bg-custom-pink {
+         background-color: #B598A2;
+         }
+      </style>
+   </head>
+   <body class="bg-gray-100">
+      <header>
+         <nav class="border-b-2 border-[#98B5AB] bg-custom-green  p-4">
+            <div class="flex justify-between items-center">
+               <div class="flex items-center">
+                  <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black"></span>
+                  <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+               </div>
+               <div class="hidden md:flex space-x-4">
+                  <a href="index.html" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
+                  <a href="trip.html" class="text-gray-700 hover:text-teal-600">Add Activities</a>
+                  <a href="details.html" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+               </div>
+               <div class="md:hidden">
+                  <button id="menu-button" class="focus:outline-none">
+                  <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
+                  </button>
+               </div>
             </div>
-            <div class="hidden md:flex space-x-4">
-                <a href="index.html" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
-                <a href="trip.html" class="text-gray-700 hover:text-teal-600">Add Activities</a>
-                <a href="details.html" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+            <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
+               <a href="index.html" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
+               <a href="trip.html" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
+               <a href="details.html" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
             </div>
-            <div class="md:hidden">
-                <button id="menu-button" class="focus:outline-none">
-                    <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
-            <a href="index.html" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
-            <a href="trip.html" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
-            <a href="details.html" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8"> 
-        <h2>Select a trip to add activities to</h2>
-        <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
+         </nav>
+      </header>
+      <main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8">
+         <h2>Select a trip to add activities to</h2>
+         <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
             <option value="">Select a trip</option>
             <!-- Options will be populated here -->
-        </select>
-    
-        <section id="packingListSection" style="display: none;">
-            <h3 class="text-lg font-semibold mb-4 text-[#B598A2]">Packing List</h3> 
+         </select>
+         <section id="packingListSection" style="display: none;">
+            <h3 class="text-lg font-semibold mb-4 text-[#B598A2]">Packing List</h3>
             <div id="packingList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Packing items will be displayed here -->
+               <!-- Packing items will be displayed here -->
             </div>
-        </section>
-    
-        <canvas id="budgetChart" class="mt-4" style="display: none; max-height: 400px; max-width: 100%;"></canvas>
-    
-        <section id="itinerarySection" style="display: none;">
+         </section>
+         <canvas id="budgetChart" class="mt-4" style="display: none; max-height: 400px; max-width: 100%;"></canvas>
+         <section id="itinerarySection" style="display: none;">
             <h3 class="text-lg font-semibold mb-4 text-[#B598A2]">Your Itinerary</h3>
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-200">
-                    <thead id="itineraryTableHead" class="hidden" style="background-color: #98B5AB; color: black;">
-                        <tr>
-                            <th class="py-2 px-4 border-b">Date</th>
-                            <th class="py-2 px-4 border-b">Start Time</th>
-                            <th class="py-2 px-4 border-b hidden md:table-cell">End Time</th>
-                            <th class="py-2 px-4 border-b">Activity Name</th>
-                            <th class="py-2 px-4 border-b hidden md:table-cell">Details</th>
-                            <th class="py-2 px-4 border-b">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itineraryTableBody">
-                        <!-- Rows will be populated here -->
-                    </tbody>
-                </table>
+               <table class="min-w-full bg-white border border-gray-200">
+                  <thead id="itineraryTableHead" class="hidden" style="background-color: #98B5AB; color: black;">
+                     <tr>
+                        <th class="py-2 px-4 border-b">Date</th>
+                        <th class="py-2 px-4 border-b">Start Time</th>
+                        <th class="py-2 px-4 border-b hidden md:table-cell">End Time</th>
+                        <th class="py-2 px-4 border-b">Activity Name</th>
+                        <th class="py-2 px-4 border-b hidden md:table-cell">Details</th>
+                        <th class="py-2 px-4 border-b">Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody id="itineraryTableBody">
+                     <!-- Rows will be populated here -->
+                  </tbody>
+               </table>
             </div>
-        </section>
-
-        <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+         </section>
+         <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
             <div class="bg-white rounded-lg shadow-lg p-6">
-                <p class="text-lg">Are you sure you want to delete this activity?</p>
-                <div class="mt-4 flex justify-end">
-                    <button id="confirmDelete" class="bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600">Yes</button>
-                    <button id="cancelDelete" class="ml-2 bg-gray-300 text-gray-800 rounded px-4 py-2 hover:bg-gray-400">No</button>
-                </div>
+               <p class="text-lg">Are you sure you want to delete this activity?</p>
+               <div class="mt-4 flex justify-end">
+                  <button id="confirmDelete" class="bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600">Yes</button>
+                  <button id="cancelDelete" class="ml-2 bg-gray-300 text-gray-800 rounded px-4 py-2 hover:bg-gray-400">No</button>
+               </div>
             </div>
-        </div>
-
-    </main>
-</body>
+         </div>
+      </main>
+   </body>
 </html>
