@@ -3,18 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your perfect trip with our Trip Planner tool. Explore destinations, create itineraries, and manage your travel plans efficiently.">
+    <meta name="keywords" content="trip planner, travel, itinerary, vacation, destinations">
+    <meta name="author" content="Drew DeMarois, Jean Robert Gassarasi, Kristy Thompson">
     <link rel="stylesheet" href="./assets/css/trip.css">
      <title>Trip Planner</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/tripmosaic.css">
+    <script src="https://unpkg.com/@iconify/iconify"></script>
+    <script src="./assets/javascript/logic.js" defer></script>
 </head>
   
-<body class="p-5">
-    <h3 class="text-lg font-bold mb-2">Add an activity to your selected</h3>
-    <select id="tripSelector" class="mb-4 p-2 border">
+<body class="bg-gray-100">
+    <header>
+    <nav class="border-b-2 border-[#98B5AB] bg-custom-green p-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="iconify text-3xl mr-2" data-icon="ic:outline-airplane-ticket" style="color: black;"></span>
+                <h1 class="text-4xl font-bold">Travel Mosaic</h1>
+            </div>
+            <div class="hidden md:flex space-x-4">
+                <a href="index.html" class="text-gray-700 hover:text-teal-600">Add New Trip</a>
+                <a href="trip.html" class="text-gray-700 hover:text-teal-600">Add Activities</a>
+                <a href="details.html" class="text-gray-700 hover:text-teal-600">View Trip Details</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-button" class="focus:outline-none">
+                    <span class="iconify" data-icon="ic:outline-menu" style="font-size: 2rem;"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden absolute right-0 mt-4 bg-white border border-#98B5AB rounded-lg shadow-lg w-48 p-4">
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add New Trip</a>
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">Add Activities</a>
+            <a href="#" class="block text-gray-700 hover:text-teal-600 py-2">View Trip Details</a>
+        </div>
+    </nav>
+</header>
+
+
+<main class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6 mt-2 md:mt-4 lg:mt-8"> 
+    <h2>Select a trip to add activities to</h2>
+    <select id="tripSelector" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-[#98B5AB] bg-[#B598A2] text-black">
         <option value="">Select a trip</option>
+        <!-- Options will be populated here -->
     </select>
 
-    
     <form id="activityForm" style="display:none;" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
         <h2 class="text-xl font-semibold mb-4">Add Activity</h2>
         
