@@ -131,7 +131,7 @@ function populateTripDropdown() {
     const tripSelector = document.getElementById('tripSelector');
     tripSelector.innerHTML = ''; // Clear existing options
 
-    // Create a default option that prompts the user to select
+    // Create and add the default option
     const defaultOption = document.createElement('option');
     defaultOption.value = ''; // No selection
     defaultOption.textContent = 'Select a trip'; // Prompt user to select
@@ -149,10 +149,8 @@ function populateTripDropdown() {
             option.textContent = trip.destination; // Display the destination
             tripSelector.appendChild(option);
         });
-    }
-
-    // Ensure there's always at least one valid option
-    if (tripSelector.options.length === 1) {
+    } else {
+        // If no trips are available, you can still show a message (optional)
         const noTripsOption = document.createElement('option');
         noTripsOption.value = ''; // No selection
         noTripsOption.textContent = 'No trips available'; // Notify user
