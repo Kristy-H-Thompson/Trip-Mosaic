@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // error handling for atendees makes sure this number is over on
-        if (attendees <= 1) {
+        if (attendees <= 0) {
             errorBox.innerHTML = 'Number of attendees must be 1 or greater';
             return;
         }
